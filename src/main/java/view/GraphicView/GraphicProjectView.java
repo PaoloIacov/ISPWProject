@@ -389,7 +389,7 @@ public class GraphicProjectView extends JFrame implements View {
         int result = JOptionPane.showConfirmDialog(
                 this,
                 panel,
-                "Add Employee",
+                "Add employee",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE
         );

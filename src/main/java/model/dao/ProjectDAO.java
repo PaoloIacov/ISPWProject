@@ -157,7 +157,9 @@ public class ProjectDAO {
 
                     User user = new User(username, password, name, surname, role);
                     users.add(user);
+                    System.out.println(user);
                 }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

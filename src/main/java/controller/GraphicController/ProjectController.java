@@ -52,8 +52,8 @@ public class ProjectController {
                 graphicProjectView.addProjectItem(
                         project.getProjectName(),
                         e -> selectProject(project.getProjectName()),
-                        e -> handleAddEmployee(project),
-                        e -> handleDeleteEmployee(project)
+                        e -> setAddEmployeeDialog(project.getProjectName()),
+                        e -> setDeleteEmployeeDialog(project.getProjectName())
                 );
             }
         } catch (SQLException e) {
@@ -69,8 +69,8 @@ public class ProjectController {
                 graphicProjectView.addProjectItem(
                         project.getProjectName(),
                         e -> selectProject(project.getProjectName()),
-                        e -> handleAddEmployee(project),
-                        e -> handleDeleteEmployee(project)
+                        e -> setAddEmployeeDialog(project.getProjectName()),
+                        e -> setDeleteEmployeeDialog(project.getProjectName())
                 );
             }
         } catch (SQLException e) {
@@ -90,38 +90,38 @@ public class ProjectController {
     }
 
 
-    private void handleAddEmployee(Project project) {
-        try {
-            List<User> usersFromProject = userDAO.getEmployeesFromProject(project.getProjectName());
-            List<String> employeeNames = usersFromProject.stream()
-                    .map(User::getUsername)
-                    .collect(Collectors.toList());
+//    private void handleAddEmployee(Project project) {
+//        try {
+//            List<User> usersFromProject = userDAO.getEmployeesFromProject(project.getProjectName());
+//            List<String> employeeNames = usersFromProject.stream()
+//                    .map(User::getUsername)
+//                    .collect(Collectors.toList());
+//
+//            String selectedUsername = graphicProjectView.showAddEmployeeDialog(employeeNames);
+//            if (selectedUsername != null) {
+//                setAddEmployeeDialog(selectedUsername);
+//            }
+//        } catch (SQLException ex) {
+//            graphicProjectView.showError("Error loading employees.");
+//        }
+//    }
 
-            String selectedUsername = graphicProjectView.showAddEmployeeDialog(employeeNames);
-            if (selectedUsername != null) {
-                setAddEmployeeDialog(selectedUsername);
-            }
-        } catch (SQLException ex) {
-            graphicProjectView.showError("Error loading employees.");
-        }
-    }
-
-    private void handleDeleteEmployee(Project project) {
-        try {
-            List<User> usersFromProject = projectDAO.getUsersFromProject(project.getProjectName());
-            List<String> employeeNames = usersFromProject.stream()
-                    .map(User::getUsername)
-                    .collect(Collectors.toList());
-
-            String selectedUsername = graphicProjectView.showDeleteEmployeeDialog(employeeNames);
-            if (selectedUsername != null) {
-                projectDAO.removeEmployeeFromProject(project.getProjectName(), selectedUsername);
-                graphicProjectView.showSuccess("Employee removed successfully from the project.");
-            }
-        } catch (SQLException ex) {
-            graphicProjectView.showError("Error loading employees.");
-        }
-    }
+//    private void handleDeleteEmployee(Project project) {
+//        try {
+//            List<User> usersFromProject = projectDAO.getUsersFromProject(project.getProjectName());
+//            List<String> employeeNames = usersFromProject.stream()
+//                    .map(User::getUsername)
+//                    .collect(Collectors.toList());
+//
+//            String selectedUsername = graphicProjectView.showDeleteEmployeeDialog(employeeNames);
+//            if (selectedUsername != null) {
+//                projectDAO.removeEmployeeFromProject(project.getProjectName(), selectedUsername);
+//                graphicProjectView.showSuccess("Employee removed successfully from the project.");
+//            }
+//        } catch (SQLException ex) {
+//            graphicProjectView.showError("Error loading employees.");
+//        }
+//    }
 
     public void setAddProjectDialog() {
         try {
@@ -192,7 +192,7 @@ public class ProjectController {
             }
 
             // Ottieni la lista degli utenti dal progetto
-            List<User> users = projectDAO.getUsersFromProject(projectName);
+            List<User> users = userDAO.getAllUsers();
             if (users.isEmpty()) {
                 graphicProjectView.showError("No employees found for this project.");
                 return;
@@ -208,7 +208,7 @@ public class ProjectController {
 
             if (selectedEmployee != null) {
                 // Estrai lo username dal formato del nome selezionato
-                String username = selectedEmployee.substring(selectedEmployee.lastIndexOf("(") + 1, selectedEmployee.lastIndexOf(")")).trim();
+               String username = selectedEmployee.substring(selectedEmployee.lastIndexOf("(") + 1, selectedEmployee.lastIndexOf(")")).trim();
 
                 // Controlla se l'utente è già associato al progetto
                 if (projectDAO.isUserInProject(projectName, username)) {
@@ -217,6 +217,7 @@ public class ProjectController {
                 }
 
                 // Aggiungi l'utente al progetto
+                System.out.println("Adding employee to project: " + projectName + ", " + username);
                 projectDAO.addEmployeeToProject(projectName, username);
                 graphicProjectView.showSuccess("Employee added successfully to the project.");
             } else {
@@ -224,6 +225,7 @@ public class ProjectController {
             }
 
         } catch (SQLException e) {
+            System.out.println(e);
             graphicProjectView.showError("Error retrieving employees for the project.");
             e.printStackTrace();
         }

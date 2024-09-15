@@ -80,8 +80,8 @@ public class ConversationController {
                         conversation.getDescription(),
                         conversation.getProjectName(),
                         e -> selectConversation(conversation.getConversationId()),
-                        e -> handleAddEmployee(conversation, userDAO),
-                        e -> handleDeleteEmployee(conversation, userDAO)
+                        e -> setAddEmployeeDialog(conversation.getProjectName(), conversation.getConversationId()),
+                        e -> setAddEmployeeDialog(conversation.getProjectName(), conversation.getConversationId())
                 );
             }
         } catch (SQLException e) {
@@ -102,8 +102,8 @@ public class ConversationController {
                         conversation.getDescription(),
                         conversation.getProjectName(),
                         e -> selectConversation(conversation.getConversationId()),
-                        e -> handleAddEmployee(conversation, userDAO),
-                        e -> handleDeleteEmployee(conversation, userDAO)
+                        e -> setAddEmployeeDialog(projectName, conversation.getConversationId()),
+                        e -> setDeleteEmployeeDialog(projectName, conversation.getConversationId())
                 );
             }
 
@@ -111,22 +111,22 @@ public class ConversationController {
 
     }
 
-    private void handleAddEmployee(Conversation conversation, UserDAO userDAO) {
-        try {
-            List<User> usersFromProject = userDAO.getEmployeesFromProject(conversation.getProjectName());
-            List<String> employeeNames = usersFromProject.stream()
-                    .map(User::getUsername)
-                    .collect(Collectors.toList());
-
-            String selectedUsername = graphicConversationView.showAddEmployeeDialog(employeeNames);
-            if (selectedUsername != null) {
-                setAddEmployeeDialog(selectedUsername, conversation.getConversationId());
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            graphicConversationView.showError("Error loading employees.");
-        }
-    }
+//    private void handleAddEmployee(Conversation conversation, UserDAO userDAO) {
+//        try {
+//            List<User> usersFromProject = userDAO.getEmployeesFromProject(conversation.getProjectName());
+//            List<String> employeeNames = usersFromProject.stream()
+//                    .map(User::getUsername)
+//                    .collect(Collectors.toList());
+//
+//            String selectedUsername = graphicConversationView.showAddEmployeeDialog(employeeNames);
+//            if (selectedUsername != null) {
+//                setAddEmployeeDialog(selectedUsername, conversation.getConversationId());
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//            graphicConversationView.showError("Error loading employees.");
+//        }
+//    }
 
     private void handleDeleteEmployee(Conversation conversation, UserDAO userDAO) {
         try {
@@ -209,7 +209,7 @@ public class ConversationController {
         try {
             String selectedProjectName = graphicConversationView.getSelectedProjectName();
             if (selectedProjectName == null || selectedProjectName.trim().isEmpty()) {
-                graphicConversationView.showError("Please select a project first.");
+                graphicConversationView.showError(selectedProjectName + "Please select a project first.");
                 return;
             }
 
