@@ -30,7 +30,7 @@ public class MessageDAO {
 
 
     // Metodo per ottenere tutti i messaggi di una conversazione specifica
-    public List<Message> getMessagesByConversationId(long conversationId) throws SQLException {
+    public List<Message> getMessagesByConversationId(Long conversationId) throws SQLException {
         List<Message> messages = new ArrayList<>();
         String query = "SELECT senderUsername, content FROM Message WHERE conversationID = ? ORDER BY datetime ASC";
 

@@ -27,7 +27,7 @@ public class CLIAdminView implements View {
         System.out.print("Enter your choice (1-7): ");
     }
 
-    public Integer getUserChoice() {
+    public int getUserChoice() {
         String input = scanner.nextLine();
         return parseInput(input);
     }
@@ -109,6 +109,7 @@ public class CLIAdminView implements View {
         System.out.println("Success: " + message);
     }
 
+    @Override
     public void showError(String message) {
         System.out.println("Error: " + message);
     }
@@ -117,6 +118,7 @@ public class CLIAdminView implements View {
         System.out.println("Invalid choice. Please enter a valid option.");
     }
 
+    @Override
     public void close() {
         scanner.close();
     }

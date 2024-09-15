@@ -111,41 +111,6 @@ public class ConversationController {
 
     }
 
-//    private void handleAddEmployee(Conversation conversation, UserDAO userDAO) {
-//        try {
-//            List<User> usersFromProject = userDAO.getEmployeesFromProject(conversation.getProjectName());
-//            List<String> employeeNames = usersFromProject.stream()
-//                    .map(User::getUsername)
-//                    .collect(Collectors.toList());
-//
-//            String selectedUsername = graphicConversationView.showAddEmployeeDialog(employeeNames);
-//            if (selectedUsername != null) {
-//                setAddEmployeeDialog(selectedUsername, conversation.getConversationId());
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println(ex);
-//            graphicConversationView.showError("Error loading employees.");
-//        }
-//    }
-
-    private void handleDeleteEmployee(Conversation conversation, UserDAO userDAO) {
-        try {
-            List<User> usersFromConversation = userDAO.getEmployeesFromConversation(conversation.getConversationId());
-            List<String> employeeNames = usersFromConversation.stream()
-                    .map(User::getUsername)
-                    .collect(Collectors.toList());
-
-            String selectedUsername = graphicConversationView.showDeleteEmployeeDialog(employeeNames);
-            if (selectedUsername != null) {
-                setDeleteEmployeeDialog(selectedUsername, conversation.getConversationId());
-                conversationDAO.removeEmployeeFromConversation(conversation.getConversationId(), selectedUsername);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            graphicConversationView.showError("Error loading employees.");
-        }
-    }
-
     private void selectConversation(Long conversationId) {
         this.currentConversationId = conversationId;
         loadMessages(conversationId);

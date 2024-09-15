@@ -1,6 +1,5 @@
 package view.CLIView;
 
-import controller.ApplicationController.ApplicationController;
 import controller.ApplicationController.CLIApplicationController;
 import model.domain.Project;
 import view.View;
@@ -80,7 +79,7 @@ public class CLIProjectView implements View {
         System.out.println("Success: " + message);
     }
 
-    // Method to show an error message
+    @Override
     public void showError(String message) {
         System.out.println("Error: " + message);
     }

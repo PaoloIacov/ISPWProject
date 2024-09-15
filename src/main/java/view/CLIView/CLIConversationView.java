@@ -1,6 +1,7 @@
 package view.CLIView;
 
 import controller.ApplicationController.CLIApplicationController;
+import controller.exceptions.WrongArgumentException;
 import model.domain.Conversation;
 import model.domain.Message;
 import view.View;
@@ -51,10 +52,17 @@ public class CLIConversationView implements View {
     }
 
     // Get the selected conversation ID from the user
-    public Long getSelectedConversationId() throws IOException {
+    public Long getSelectedConversationId() throws IOException, WrongArgumentException {
         System.out.print("Insert the conversation ID to see the messages: ");
-        return Long.parseLong(reader.readLine());
+        String input = reader.readLine();
+        try {
+            return Long.parseLong(input);
+        } catch (NumberFormatException e) {
+            throw new WrongArgumentException("Invalid conversation ID. Please enter a valid numeric ID.");
+        }
     }
+
+
 
     // Show messages of a conversation
     public void showConversationMessages(List<Message> messages) {

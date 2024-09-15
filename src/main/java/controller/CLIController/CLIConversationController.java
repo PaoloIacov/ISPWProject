@@ -1,5 +1,6 @@
 package controller.CLIController;
 
+import controller.exceptions.WrongArgumentException;
 import model.domain.Conversation;
 import model.domain.Credentials;
 import model.domain.Message;
@@ -63,8 +64,13 @@ public class CLIConversationController {
 
             switch (action.intValue()) {
                 case 1 -> { // View conversation messages
+                    try {
                     Long selectedConversationId = conversationView.getSelectedConversationId();
                     loadMessagesForConversation(selectedConversationId);
+                    } catch (WrongArgumentException e) {
+                        conversationView.showError("Error loading messages.");
+                        e.printStackTrace();
+                    }
                 }
                 case 2 -> { // Go back
                     conversationView.showSuccess("Going back....");

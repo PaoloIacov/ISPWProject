@@ -1,6 +1,6 @@
 package controller.CLIController;
 
-import controller.ApplicationController.ApplicationController;
+
 import controller.ApplicationController.CLIApplicationController;
 import model.domain.Credentials;
 import model.dao.LoginDAO;
@@ -36,7 +36,6 @@ public class CLILoginController {
                 applicationController.onLoginSuccess(credentials);
             } else {
                 // Show error if credentials are invalid
-                loginView.showLoginError("Invalid username or password.");
             }
 
         } catch (SQLException e) {

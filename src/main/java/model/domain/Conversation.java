@@ -20,7 +20,7 @@ public class Conversation implements Serializable {
         return conversationId;
     }
 
-    public void setConversationId(long conversationId) {
+    public void setConversationId(Long conversationId) {
         this.conversationId = conversationId;
     }
 

@@ -269,11 +269,6 @@ public class GraphicProjectView extends JFrame implements View {
         JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void clearMessages() {
-        projectInfoPanel.removeAll();
-        refresh();
-    }
-
     public void clearProjects() {
         projectListPanel.removeAll();
         projectButtonMap.clear();
@@ -432,18 +427,6 @@ public class GraphicProjectView extends JFrame implements View {
 
     public void setDeleteButtonVisible(boolean visible) {
         deleteProjectButton.setVisible(visible);
-    }
-
-    public void setAddEmployeeButtonVisible(boolean visible) {
-        for (JButton button : addEmployeeButtonMap.keySet()) {
-            button.setVisible(visible);
-        }
-    }
-
-    public void setDeleteEmployeeButtonVisible(boolean visible) {
-        for (JButton button : deleteEmployeeButtonMap.keySet()) {
-            button.setVisible(visible);
-        }
     }
 
     @Override

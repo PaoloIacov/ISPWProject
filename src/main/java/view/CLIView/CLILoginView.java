@@ -28,14 +28,7 @@ public class CLILoginView implements View{
         return new Credentials(username, password);
     }
 
-    public void showLoginSuccess(Credentials credentials) {
-        System.out.println("Login successfull, welcome " + credentials.getUsername() + ". Identified as: " + credentials.getRole());
-    }
-
-    public void showLoginError(String errorMessage) {
-        System.out.println("Errore di login: " + errorMessage);
-    }
-
+    @Override
     public void showError(String errorMessage) {
         System.out.println("Errore: " + errorMessage);
     }

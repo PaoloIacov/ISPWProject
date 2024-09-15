@@ -90,39 +90,6 @@ public class ProjectController {
     }
 
 
-//    private void handleAddEmployee(Project project) {
-//        try {
-//            List<User> usersFromProject = userDAO.getEmployeesFromProject(project.getProjectName());
-//            List<String> employeeNames = usersFromProject.stream()
-//                    .map(User::getUsername)
-//                    .collect(Collectors.toList());
-//
-//            String selectedUsername = graphicProjectView.showAddEmployeeDialog(employeeNames);
-//            if (selectedUsername != null) {
-//                setAddEmployeeDialog(selectedUsername);
-//            }
-//        } catch (SQLException ex) {
-//            graphicProjectView.showError("Error loading employees.");
-//        }
-//    }
-
-//    private void handleDeleteEmployee(Project project) {
-//        try {
-//            List<User> usersFromProject = projectDAO.getUsersFromProject(project.getProjectName());
-//            List<String> employeeNames = usersFromProject.stream()
-//                    .map(User::getUsername)
-//                    .collect(Collectors.toList());
-//
-//            String selectedUsername = graphicProjectView.showDeleteEmployeeDialog(employeeNames);
-//            if (selectedUsername != null) {
-//                projectDAO.removeEmployeeFromProject(project.getProjectName(), selectedUsername);
-//                graphicProjectView.showSuccess("Employee removed successfully from the project.");
-//            }
-//        } catch (SQLException ex) {
-//            graphicProjectView.showError("Error loading employees.");
-//        }
-//    }
-
     public void setAddProjectDialog() {
         try {
             // Ottieni la lista dei project manager (ruolo = 2)
@@ -263,8 +230,5 @@ public class ProjectController {
             e.printStackTrace();
         }
     }
-
-
-
 
 }

@@ -72,7 +72,6 @@ public class ConversationDAO {
     }
 
 
-    // Metodo per ottenere le conversazioni di un dipendente dato il suo username
     // Metodo per ottenere le conversazioni per un dipendente
     private List<Conversation> getConversationsForEmployee(String username) throws SQLException {
         List<Conversation> conversations = new ArrayList<>();

@@ -32,18 +32,5 @@ public class LoginDAO {
             }
         }
     }
-
-    // Metodo per chiudere la connessione
-    public void closeConnection() {
-        if (connection != null) {
-            try {
-                if (!connection.isClosed()) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
 //Miglioramenti possibili: hashing della password in SHA-256 e creazione di un token di sessione
